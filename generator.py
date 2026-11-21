@@ -5,7 +5,7 @@ here is UI-free so it can be tested without running Streamlit.
 """
 
 from dataclasses import dataclass
-from functools import lru_cache
+from functools import cache
 from io import StringIO
 
 import torch
@@ -71,14 +71,14 @@ class GenerationResult:
     usage: TokenUsage
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_tokenizer(model_name: str):
     """Load just a tokenizer (no weights), cached — cheap enough to fan out
     across many models for the tokenizer-comparison chart."""
     return AutoTokenizer.from_pretrained(model_name)
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_model(model_name: str):
     """Load a model + tokenizer pair, cached so each model loads once."""
     tokenizer = AutoTokenizer.from_pretrained(model_name)
