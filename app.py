@@ -6,8 +6,8 @@ import streamlit as st
 from generator import (
     SamplingParams,
     avg_tokens_by_model,
-    comparison_summary_row,
     compare_token_counts,
+    comparison_summary_row,
     generate,
     history_to_csv,
     load_model,

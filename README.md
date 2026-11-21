@@ -1,5 +1,7 @@
 # LLM Sampling Playground 🎲
 
+[![CI](https://github.com/niclashart/LLM-Sampling-Playground/actions/workflows/test.yml/badge.svg)](https://github.com/niclashart/LLM-Sampling-Playground/actions/workflows/test.yml)
+
 An interactive playground for understanding how **sampling parameters** shape
 the output of autoregressive language models — built with
 [Streamlit](https://streamlit.io) and 🤗 Transformers.
@@ -9,6 +11,8 @@ LiquidAI LFM2.5 (2026) — tweak temperature / top-k / top-p / repetition
 penalty, generate, and inspect a chart of the probability the model assigned
 to **each generated token**. Presets (`Creative`, `Focused`, greedy decoding)
 make A/B comparisons a click away.
+
+![Streamlit UI: sampling controls, generated text and the per-token confidence chart (GPT-2 Medium, default "Balanced" preset)](docs/screenshot.png)
 
 This is a tool for **exploration, not evaluation**: no benchmarks, no scores —
 the goal is to see and feel what sampling does, not to rank models.
@@ -74,17 +78,26 @@ generator.py   # UI-free core: params → generate() → text + token probabilit
 app.py         # Streamlit UI (thin skin over generator.py)
 cli.py         # Headless CLI — same seams as the app
 tests/         # Unit tests for the generation logic
+.github/       # CI workflow (ruff + pytest)
 ```
 
 ## Testing & CI
 
 ```bash
+pip install pytest ruff
+ruff check .
 pytest
 ```
 
-GitHub Actions runs the test suite on every push and pull request.
+GitHub Actions ([`.github/workflows/test.yml`](.github/workflows/test.yml))
+runs `ruff check` and the test suite on every push to `master` and on every
+pull request.
 
 ## Ideas welcome, deliberately out of scope
 
 Other tasks (summarization, chat) and benchmark scoring would turn this into
 an eval platform — this project intentionally stays a sampling playground.
+
+## License
+
+[MIT](LICENSE)
